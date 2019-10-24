@@ -86,7 +86,7 @@
                   <br />
                   <br />
                   <p>Input Key</p>
-                  <input name="key" id="key" class="form-control" style="width: 450px"></input>
+                  <input name="key" id="key" type="password" class="form-control" style="width: 450px"></input>
                   <br />
                   <br />
                   <div id="button_decrypt" style="padding-left: 80px">
