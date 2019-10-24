@@ -43,22 +43,22 @@
                 </div>
                 <!-- body modal -->
                 <div class="modal-body">
-                <form method="post" id="insert_form">     
-                     <p>Input Plain Text</p>
-                     <input type="text" name="plain_text" id="plain_text" class="form-control" style="height:150px; width: 450px" />
-                     <br />
-                     <br />
-                     <p>Input Key</p>
-                     <input name="key" id="key" class="form-control" style="width: 450px"></input>
-                     <br />
-                     <br />
-                     <div id="button_encrypt" style="padding-left: 80px">
-                     <button type="button" class="btn btn-success" style="width:300px;">Encrypt</button>
-                     </div>
-                     <br />
-                     <div id="chipper_text">
-                      <p><strong>Chipper Text:</strong></p>
-                    </div>
+                <form method="post" id="encryption_form">     
+                  <p>Input Plaintext</p>
+                  <input type="text" name="message" id="message" class="form-control" style="height:150px; width: 450px" />
+                  <br />
+                  <br />
+                  <p>Input Key</p>
+                  <input name="key" id="key" type="password" class="form-control" style="width: 450px"></input>
+                  <br />
+                  <br />
+                  <div id="button_encrypt" style="padding-left: 80px">
+                    <button type="submit" class="btn btn-success" style="width:300px;">Encrypt</button>
+                  </div>
+                  <br />
+                  <div id="chiper_text">
+                    <p><strong>Ciphertext:</strong></p>
+                  </div>
                 </form>
 
                 </div>
@@ -80,22 +80,22 @@
                 </div>
                 <!-- body modal -->
                 <div class="modal-body">
-                <form method="post" id="insert_form">     
-                     <p>Input Chipper Text</p>
-                     <input type="text" name="plain_text" id="plain_text" class="form-control" style="height:150px; width: 450px" />
-                     <br />
-                     <br />
-                     <p>Input Key</p>
-                     <input name="key" id="key" class="form-control" style="width: 450px"></input>
-                     <br />
-                     <br />
-                     <div id="button_encrypt" style="padding-left: 80px">
-                     <button type="button" class="btn btn-success" style="width:300px;">Decrypt</button>
-                     </div>
-                     <br />
-                     <div id="chipper_text">
-                      <p><strong>Plain Text:</strong></p>
-                    </div>
+                <form method="post" id="decryption_form">     
+                  <p>Input Ciphertext</p>
+                  <input type="text" name="cipher_text2" id="cipher_text2" class="form-control" style="height:150px; width: 450px" />
+                  <br />
+                  <br />
+                  <p>Input Key</p>
+                  <input name="key" id="key" class="form-control" style="width: 450px"></input>
+                  <br />
+                  <br />
+                  <div id="button_decrypt" style="padding-left: 80px">
+                    <button type="submit" class="btn btn-success" style="width:300px;">Decrypt</button>
+                  </div>
+                  <br />
+                  <div id="plain_text">
+                    <p><strong>Plaintext:</strong></p>
+                  </div>
                 </form>
 
                 </div>
@@ -107,251 +107,97 @@
         </div>
     </div>
 
- 
-
- <!--<div id="tabel_mahasiswa" class="table table-responsive{-sm|-md|-lg|-xl}"  style="margin-top: 0;">
-    <table id="tabel" class="table table-bordered">
-        <thead class="thead-light">
-        <tr>
-            <th>Id</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>No Hp</th>
-            <th>Action</th>
-        </tr>
-       </thead>
-    <tbody></tbody>
-    </table>
-    </div>
-   </div>
- -->
-
 <!-- fungsi insert-->
-    <script type="text/javascript">
+<script type="text/javascript">
       
         
-        $('#table').on( 'keyup', function () {
-            table.search( this.value ).draw();
-        } );
+$('#table').on( 'keyup', function () {
+    table.search( this.value ).draw();
+});
 
+//Encryption
+$('#encryption_form').on("submit", function(event){  
+  event.preventDefault();  
+  if($('#name').val() == "")  
+  {  
+     //$('.toast').toast('show', {delay:1000});
+       error();
+  }  
+  else if($('#email').val() == '')  
+  {  
+     error();
+  }  
+  else if($('#handphone').val() == '')
+  {  
+     error();
+  }
 
-        $('#insert_form').on("submit", function(event){  
-        event.preventDefault();  
-        if($('#name').val() == "")  
-        {  
-           //$('.toast').toast('show', {delay:1000});
-             error();
-        }  
-        else if($('#email').val() == '')  
-        {  
-           error();
-        }  
-        else if($('#handphone').val() == '')
-        {  
-           error();
-        }
-
-        else  
-        {  
-         $.ajax({  
-          url:"insert.php",  
-          method:"POST",  
-          data:$('#insert_form').serialize(),
-          beforeSend:function(){  
-          $("#insert").attr("disabled", true);
-          },    
-          success:function(data){  
-            success();
-           $("#insert").attr("disabled", false);
-           $('#insert_form')[0].reset();  
-           $('#myModal').modal('hide');  
-           loadData();
-          }  
-         });
-      }
-  });
-
-//Menampilkan Tampilan
-$(document).ready(function(){
-   loadData();
-  });
-
-    $('#insert_form2').on("submit", function(event){  
-    event.preventDefault();  
-    if($('#name2').val() == "")  
-    {  
-      error();
-    }  
-    else if($('#email2').val() == '')  
-    {  
-     error(); 
-    }  
-    else if($('#handphone2').val() == '')
-    {  
-    error();
-    }
   else  
   {  
-  $.ajax({  
-          url:"update.php",  
-          method:"POST",
-          data:$('#insert_form2').serialize(),
-          beforeSend:function(){  
-          $("#insert2").attr("disabled", true);
-          },    
-          success:function(data){  
-            console.log("ok");
-            console.log(data);
-            successUpdate();
-            $("#insert2").attr("disabled", false);
-            $('#insert_form2')[0].reset();  
-            $('#myModalEdit').modal('hide'); 
-            loadData(); 
+    $.ajax({  
+      url:"encrypt_AES.php",  
+      method:"POST",  
+      data:$('#encryption_form').serialize(),
+      beforeSend:function(){  
+        $("#insert").attr("disabled", true);
+      },    
+      success:function(data){  
+        success();
+        //$('#chipper_text').load("oke.php");
+        $('#chiper_text').html(data);
+        $("#insert").attr("disabled", false);
+        //$('#encryption')[0].reset();  
+        $('#myModal').modal('hide');
       }  
     });
   }
 });
 
-
- function prepareUpdate(id){ 
-           $.ajax({  
-                url:"select.php",
-                method:"POST",
-                data: {"joko":id},  
-                success:function(data){  
-                  console.log("ok");
-                  console.log(id);
-                  var objResponse = JSON.parse(data);
-                  console.log(objResponse.data[0]);
-                  var obj=objResponse.data[0];
-                  $('#id').val(obj.id);
-                  $('#name2').val(obj.name);
-                  $('#email2').val(obj.email);
-                  $('#hape2').val(obj.handphone);
-                  $('#myModalEdit').modal('show');
-                }  
-           });  
-
-      }
-
-
-    $('#delete_form').on("submit", function(event){  
-       event.preventDefault();  
-           $.ajax({  
-            url:"update_flag.php",  
-            method:"POST",
-            data:$('#delete_form').serialize(),  
-            beforeSend:function(){
-             $("#delete").attr("disabled", true);   
-            },
-            success:function(data){  
-            console.log("ok");
-            console.log(data);
-            successDelete();
-             $("#delete").attr("disabled", false);
-            $('#insert_form2')[0].reset();  
-            $('#myModalDelete').modal('hide'); 
-            loadData(); 
-            } 
-         
-    });
-    
-  });
-
-
-  //fungsi delete
-   function prepareUpdateFlag(id){ 
-           $.ajax({  
-                url:"select.php",
-                method:"POST",
-                data: {"joko":id},  
-                success:function(data){  
-                  console.log("ok");
-                  console.log(flag);
-                  var objResponse = JSON.parse(data);
-                  console.log(objResponse.data[0]);
-                  var obj=objResponse.data[0];
-                  $('#idupdate').val(obj.id);
-                  $('#flag').val(-1);
-                  $('#myModalDelete').modal('show');
-                }  
-           });  
-
+//Decryption
+$('#decryption_form').on("submit", function(event){  
+  event.preventDefault();  
+  if($('#name').val() == "")  
+  {  
+     //$('.toast').toast('show', {delay:1000});
+       error();
+  }  
+  else if($('#email').val() == '')  
+  {  
+     error();
+  }  
+  else if($('#handphone').val() == '')
+  {  
+     error();
   }
 
-
-          function error (){
-
-              Swal.fire({
-              type: 'error',
-              title: 'Error',
-              text: 'Isi semua data',
-              })
-          }
-
-          function success(){
-              Swal.fire(
-             'Berhasil',
-             'Data anda telah berhasil ditambahkan',
-             'success'
-        )
-        }
-
-         function successUpdate(){
-          Swal.fire(
-        'Berhasil',
-        'Data anda telah berhasil diperbarui',
-        'success'
-      )
-      }
-
-        function successDelete(){
-          Swal.fire(
-        'Berhasil',
-        'Data anda telah berhasil dihapus',
-        'success'
-      )}
-
-
-
-  function loadData(){
- $.ajax({
-     url:"fetch.php",
-     method:"POST",
-     success:function(data){
-        var objResponse = JSON.parse(data);
-        console.log(objResponse.data);
-        for (objData of objResponse.data ){
-                objData.action = '';
-                objData.action += '<button class=\'btn btn-sm btn-light\' onClick="prepareUpdate(\'' + objData.id + '\')"><i class=\'fa fa-edit\' aria-hidden=\'true\' ></i> Update</button>';
-                objData.action += '<button class=\'btn btn-sm btn-warning\' data-toggle=\'modal\' data-target=\'#mdl_update_flag\' onClick="prepareUpdateFlag(\'' + objData.id + '\')"><i class=\'fa fa-trash\' aria-hidden=\'true\'></i> Delete</button>';
-            }
-        $("#tabel").dataTable({
-                destroy:true,
-                responsive:true,                
-                data: objResponse.data,
-                searching:true,
-                dom: 'rftip',
-
-                columns: [
-                    { data: 'id' },
-                    { data: 'name', responsivePriority: 2},
-                    { data: 'email' },
-                    { data: 'handphone' },
-                    { data: 'action', responsivePriority: 1}
-                ]                    
-            });    
-    }
+  else  
+  {  
+    $.ajax({  
+      url:"decrypt_AES.php",  
+      method:"POST",  
+      data:$('#decryption_form').serialize(),
+      beforeSend:function(){  
+        $("#insert").attr("disabled", true);
+      },    
+      success:function(data){  
+        success();
+        //$('#chipper_text').load("oke.php");
+        $('#plain_text').html(data);
+        $("#insert").attr("disabled", false);
+        //$('#insert_form')[0].reset();  
+        $('#myModal').modal('hide');
+      }  
     });
-
-
   }
+});
+
+function success(){
+  Swal.fire(
+  'Berhasil',
+  'success')
+}
 
 </script>
-
-
-
-
 </body>
 </html>
 
