@@ -9,8 +9,8 @@
     <link type="text/css" src="toast/toastr.min.css">
     <script type="text/javascript" src="toast/toastr.min.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+   <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/> 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>-->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
@@ -19,7 +19,7 @@
 
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
-     <img src="cloud-data-512.png" width="40" height="40" class="d-inline-block align-top" alt="">
+     <img src="cloud.png" width="40" height="40" class="d-inline-block align-top" alt="">
      Crypto Test Using AES
   </a>
   
@@ -45,26 +45,29 @@
                 <div class="modal-body">
                 <form method="post" id="encryption_form">     
                   <p>Input Plaintext</p>
-                  <input type="text" name="message" id="message" class="form-control" style="height:150px; width: 450px" />
+				   <!--<input type="text" name="message" id="message" class="form-control" style="height:150px; width: 450px" /> 
+				   <input name="key" id="key" type="password" class="form-control" style="width: 450px"></input>-->
+				  <textarea name="message" id="message" class="form-control" rows="4" cols="55">
+				  </textarea>
                   <br />
                   <br />
                   <p>Input Key</p>
-                  <input name="key" id="key" type="password" class="form-control" style="width: 450px"></input>
+				  <input name="key" id="key" type="password" class="form-control" style="width: 430px">
                   <br />
                   <br />
                   <div id="button_encrypt" style="padding-left: 80px">
-                    <button type="submit" class="btn btn-success" style="width:300px;">Encrypt</button>
+                    <button id="submit_enc" type="submit" class="btn btn-success" style="width:300px;">Encrypt</button>
                   </div>
                   <br />
                   <div id="chiper_text">
                     <p><strong>Ciphertext:</strong></p>
+				    <textarea name="chiper_text" id="chiper"  class="form-control" rows="4" cols="55">
+				    </textarea>
                   </div>
                 </form>
-
                 </div>
                 <!-- footer modal -->
-                
-                <button type="button" class="btn btn-success">Refresh</button>
+                <button  onclick="refreshEncrypt()" type="button" class="btn btn-success">Refresh</button>
           
             </div>
         </div>
@@ -82,119 +85,89 @@
                 <div class="modal-body">
                 <form method="post" id="decryption_form">     
                   <p>Input Ciphertext</p>
-                  <input type="text" name="cipher_text2" id="cipher_text2" class="form-control" style="height:150px; width: 450px" />
-                  <br />
+                  <!--<input type="text" name="cipher_text2" id="cipher_text2" class="form-control" style="height:150px; width: 450px" />
+                  <input name="key" id="key" type="password" class="form-control" style="width: 450px"></input>-->
+				  <textarea type="text" name="cipher_text2" id="cipher_text2" class="form-control" rows="4" cols="55">
+				  </textarea>
+				  <br />
                   <br />
                   <p>Input Key</p>
-                  <input name="key" id="key" type="password" class="form-control" style="width: 450px"></input>
+				   <input name="key2" id="key2" type="password" class="form-control" style="width: 430px">
                   <br />
                   <br />
                   <div id="button_decrypt" style="padding-left: 80px">
-                    <button type="submit" class="btn btn-success" style="width:300px;">Decrypt</button>
+                    <button id="submit_dec" type="submit" class="btn btn-success" style="width:300px;">Decrypt</button>
                   </div>
                   <br />
                   <div id="plain_text">
                     <p><strong>Plaintext:</strong></p>
+					 <textarea name="plaintext" id="plain"  class="form-control" rows="4" cols="55">
+				    </textarea>
                   </div>
                 </form>
 
                 </div>
                 <!-- footer modal -->
-                
-                <button type="button" class="btn btn-success">Refresh</button>
+                <button  onclick="refreshDecrypt()" type="button" class="btn btn-success">Refresh</button>
           
             </div>
         </div>
     </div>
 
-<!-- fungsi insert-->
 <script type="text/javascript">
       
-        
-$('#table').on( 'keyup', function () {
-    table.search( this.value ).draw();
-});
-
 //Encryption
 $('#encryption_form').on("submit", function(event){  
   event.preventDefault();  
-  if($('#name').val() == "")  
-  {  
-     //$('.toast').toast('show', {delay:1000});
-       error();
-  }  
-  else if($('#email').val() == '')  
-  {  
-     error();
-  }  
-  else if($('#handphone').val() == '')
-  {  
-     error();
-  }
-
-  else  
-  {  
     $.ajax({  
       url:"encrypt_AES.php",  
       method:"POST",  
       data:$('#encryption_form').serialize(),
       beforeSend:function(){  
-        $("#insert").attr("disabled", true);
+        $("#submit_enc").attr("disabled", true);
       },    
       success:function(data){  
-        success();
-        //$('#chipper_text').load("oke.php");
-        $('#chiper_text').html(data);
-        $("#insert").attr("disabled", false);
-        //$('#encryption')[0].reset();  
-        $('#myModal').modal('hide');
+       /// success();
+        $('#chiper').html(data);
+        $("#submit_enc").attr("disabled", false);
       }  
     });
-  }
 });
 
 //Decryption
 $('#decryption_form').on("submit", function(event){  
   event.preventDefault();  
-  if($('#name').val() == "")  
-  {  
-     //$('.toast').toast('show', {delay:1000});
-       error();
-  }  
-  else if($('#email').val() == '')  
-  {  
-     error();
-  }  
-  else if($('#handphone').val() == '')
-  {  
-     error();
-  }
-
-  else  
-  {  
     $.ajax({  
       url:"decrypt_AES.php",  
       method:"POST",  
       data:$('#decryption_form').serialize(),
       beforeSend:function(){  
-        $("#insert").attr("disabled", true);
+        $("#submit_dec").attr("disabled", true);
       },    
       success:function(data){  
-        success();
-        //$('#chipper_text').load("oke.php");
-        $('#plain_text').html(data);
-        $("#insert").attr("disabled", false);
-        //$('#insert_form')[0].reset();  
-        $('#myModal').modal('hide');
+       // success();
+        $('#plain').html(data);
+        $("#submit_dec").attr("disabled", false);
       }  
     });
-  }
 });
 
-function success(){
-  Swal.fire(
-  'Berhasil',
-  'success')
+//function success(){
+  //Swal.fire(
+  //'Berhasil',
+  //'success')
+//}
+
+function refreshEncrypt(){
+document.getElementById("message").value ="";
+document.getElementById("key").value ="";
+document.getElementById("chiper").value ="";
+}
+
+function refreshDecrypt(){
+document.getElementById("cipher_text2").value ="";
+document.getElementById("key2").value ="";
+document.getElementById("plain").value ="";
 }
 
 </script>
