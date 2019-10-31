@@ -42,7 +42,7 @@
                 </div>
                 <!-- body modal -->
                 <div class="modal-body">	
-				<form  action="encrypt_file.php" method="post" enctype="multipart/form-data" id="encryption_form">
+				<form  method="post" enctype="multipart/form-data" id="encryption_form">
 					<input type="file" name="file" id="file">
 					<br>
 					<br>
@@ -52,8 +52,10 @@
                
 					 <div id="pin_number">
 						<p><strong>NO PIN code detected</strong></p>
+                        <textarea name="pin" id="pin"  class="form-control" rows="4" cols="55">
+                        </textarea>
 					 </div>
-					<button type="submit" class="btn btn-success" name="upload" value="Upload">Encrypt</button>
+					<button type="upload" class="btn btn-success" id="submit_enc" value="Upload">Encrypt</button>
 				</form>
 				</div>
                 <!-- footer modal 
@@ -74,16 +76,14 @@
                 <!-- body modal -->
                 <div class="modal-body">	
 				<form  action="decrypt_file.php" method="post" enctype="multipart/form-data" id="encryption_form">
-					<input type="file" name="file2" id="file2">
+					<p>Input PIN</p>
+                    <input name="pin2" id="pin2" class="form-control" style="width: 450px"></input>
 					<br>
 					<br>
 					<p>Input Key</p>
                      <input name="key2" id="key2" class="form-control" style="width: 450px"></input>
                      <br />
                
-					 <div id="pin_number">
-						<p><strong>NO PIN code detected</strong></p>
-					 </div>
 					<button type="submit" class="btn btn-success" name="upload" value="Upload">Decrypt </button>
 				</form>
 				</div>
@@ -95,9 +95,24 @@
     </div>
 	</div>
 	</div>
-	 <script type="text/javascript">
 
-
+<script type="text/javascript">
+//Encryption
+$('#encryption_form').on("submit", function(event){  
+  event.preventDefault();  
+    $.ajax({  
+      url:"encrypt_file.php",  
+      method:"POST",  
+      data: new FormData(this),
+      processData: false,
+      cache: false,
+      contentType: false,
+      success:function(data){  
+        $('#pin').html(data);
+      }  
+    });
+});
 </script>
+
 </body>
 </html>
