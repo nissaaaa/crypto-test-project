@@ -17,5 +17,5 @@ while(strlen($key) < 16)
 }
 // ENCRYPTION
 $cipher = encrypt($key, $payload);
-echo $chiper;                                 
+echo $cipher;                                 
 ?>

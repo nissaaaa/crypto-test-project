@@ -10,12 +10,12 @@ function decrypt ($key, $garble) {
 }
 
 $garble = $_POST['cipher_text2'];
-$key = $_POST['key'];
+$key = $_POST['key2'];
 while(strlen($key) < 16) 
 {
   $key .= "\0";
 }
 // DECRYPTION
 $end_result = decrypt($key, $garble);
-echo "<strong>","Plaintext: ", $end_result, "</strong>","<br></br>";
+echo $end_result;
 ?>
