@@ -49,10 +49,42 @@
 					<p>Input Key</p>
                      <input name="key" id="key" class="form-control" style="width: 450px"></input>
                      <br />
+               
 					 <div id="pin_number">
 						<p><strong>NO PIN code detected</strong></p>
 					 </div>
-					<button type="submit" class="btn btn-success" name="upload" value="Upload">Upload </button>
+					<button type="submit" class="btn btn-success" name="upload" value="Upload">Encrypt</button>
+				</form>
+				</div>
+                <!-- footer modal 
+                <button type="button" class="btn btn-success">Refresh</button>
+				-->
+            </div>
+        </div>
+    </div>
+	
+	<div id="myModal_Decrypt"  style="display:inline; padding-right: 100px" >
+        <div style="width:550px">
+            <!-- konten modal-->
+            <div class="modal-content">
+                <!-- heading modal -->
+                <div class="modal-header">
+                <h4 class="modal-title">Decryption </h4>
+                </div>
+                <!-- body modal -->
+                <div class="modal-body">	
+				<form  action="decrypt_file.php" method="post" enctype="multipart/form-data" id="encryption_form">
+					<input type="file" name="file2" id="file2">
+					<br>
+					<br>
+					<p>Input Key</p>
+                     <input name="key2" id="key2" class="form-control" style="width: 450px"></input>
+                     <br />
+               
+					 <div id="pin_number">
+						<p><strong>NO PIN code detected</strong></p>
+					 </div>
+					<button type="submit" class="btn btn-success" name="upload" value="Upload">Decrypt </button>
 				</form>
 				</div>
                 <!-- footer modal 
