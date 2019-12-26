@@ -169,6 +169,12 @@ document.getElementById("cipher_text2").value ="";
 document.getElementById("key2").value ="";
 document.getElementById("plain").value ="";
 }
+function GotoCryptoText() {
+	window.location.href = "crypto_text.php";
+}
+function GotoCryptoFile() {
+	window.location.href = "crypto_file.php";
+}
 
 </script>
 </body>
